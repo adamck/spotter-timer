@@ -1,6 +1,6 @@
-import { useCallback } from 'react'
-import { defaultTime, useTimerStore } from '../state/store'
+import { defaultTime, useTimerStore } from '@/state/store'
 import { PauseIcon, PlayIcon } from '@sanity/icons'
+import { useCallback } from 'react'
 
 const timeToAdd = 60
 

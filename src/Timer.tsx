@@ -1,9 +1,9 @@
+import Controls from '@/components/Controls'
+import Header from '@/components/Header'
+import RadialGauge from '@/components/RadialGauge'
+import { useTimer } from '@/hooks/useTimer'
+import { defaultTime, useTimerStore } from '@/state/store'
 import { useEffect } from 'react'
-import RadialGauge from './components/RadialGauge'
-import { useTimer } from './hooks/useTimer'
-import { defaultTime, useTimerStore } from './state/store'
-import Controls from './components/Controls'
-import Header from './components/Header'
 
 const Timer = () => {
   // TODO: change to useShallow
