@@ -1,4 +1,4 @@
-import { defaultTime, useTimerStore } from './store'
+import { useTimerStore } from './store'
 
 describe('timer state management', () => {
   const initStoreState = useTimerStore.getState()
