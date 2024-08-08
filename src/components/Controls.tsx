@@ -45,7 +45,7 @@ const Controls = () => {
     return () => {
       document.removeEventListener('keypress', keyHandler)
     }
-  }, [running])
+  }, [running, time])
 
   return (
     <div className="flex w-full items-center justify-between px-8 text-white">
