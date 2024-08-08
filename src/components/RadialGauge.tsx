@@ -179,7 +179,7 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
   }
 
   // unused but a necessary prop for ContentEditable *shrug*
-  const _onEditableChange = () => {}
+  const _onEditableChange = () => null
 
   return (
     <div className="md:w-[320px] lg:w-[462px] relative">
@@ -199,6 +199,10 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
           onKeyUp={onEditableKeyUp}
           onKeyDown={onEditableKeyDown}
           onChange={_onEditableChange}
+          style={{
+            // prevent shift
+            'font-variant-numeric': 'tabular-nums',
+          }}
         />
       </div>
     </div>

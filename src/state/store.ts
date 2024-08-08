@@ -27,9 +27,11 @@ export const useTimerStore = create<TimerState>((set) => ({
 
   tick: () =>
     set((state) => {
-      // TODO: call stop when hitting zero
+      // stop when hitting zero
+      const time = Math.max(0, state.time - 1)
       return {
-        time: Math.max(0, state.time - 1),
+        time,
+        running: time > 0,
       }
     }),
 
