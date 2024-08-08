@@ -54,8 +54,9 @@ const getChartOptions = (value: number, total: number): ChartProps =>
 
               return `${mins}:${secs}`
             },
-            fontSize: '48px',
-            color: 'white',
+            fontSize: '52px',
+            fontFamily: 'Inter',
+            color: '#fff',
             offsetY: 16,
           },
         },
