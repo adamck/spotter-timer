@@ -1,6 +1,6 @@
 import { defaultTime, useTimerStore } from '@/state/store'
 import { PauseIcon, PlayIcon } from '@sanity/icons'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 
 const timeToAdd = 60
 
@@ -25,27 +25,58 @@ const Controls = () => {
     set(time + timeToAdd)
   }
 
+  useEffect(() => {
+    // spacebar to start/stop timer
+    const keyHandler = (e: KeyboardEvent) => {
+      // all keyboard shortcuts use Option (⌥)
+      if (!e.altKey) return
+
+      if (e.code === 'Space') {
+        toggleTimer()
+      } else if (e.code === 'KeyR') {
+        resetTimer()
+      } else if (e.code === 'KeyA') {
+        addTime()
+      }
+    }
+
+    document.addEventListener('keypress', keyHandler)
+
+    return () => {
+      document.removeEventListener('keypress', keyHandler)
+    }
+  }, [running])
+
   return (
     <div className="flex w-full items-center justify-between px-8 text-white">
-      <h3 className="cursor-pointer text-3xl w-[80px]" onClick={addTime}>
+      <button
+        className="cursor-pointer text-3xl text-center w-[75px]"
+        onClick={addTime}
+        tabIndex={0}
+        title="Add an additional minute (⌥+A)"
+      >
         +1:00
-      </h3>
-      <div
+      </button>
+      <button
         className="cursor-pointer rounded-full size-20 flex items-center justify-center bg-brand-50 hover:bg-brand-70 transition ease-out duration-100"
         onClick={toggleTimer}
+        tabIndex={0}
+        title="Start and stop the timer (⌥+SPACE)"
       >
         {running ? (
           <PauseIcon width={40} height={40} />
         ) : (
           <PlayIcon width={40} height={40} className="ml-1" />
         )}
-      </div>
-      <p
-        className="cursor-pointer text-3xl w-[80px] text-right"
+      </button>
+      <button
+        className="cursor-pointer text-3xl text-center w-[75px]"
         onClick={resetTimer}
+        tabIndex={0}
+        title="Reset the timer to its initial value (⌥+R)"
       >
         Reset
-      </p>
+      </button>
     </div>
   )
 }

@@ -15,6 +15,7 @@ const Timer = () => {
   useTimer(running, tick)
 
   useEffect(() => {
+    // on init, setup timer with 10 secs on the clock
     set(defaultTime)
   }, [])
 
