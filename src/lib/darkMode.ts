@@ -4,9 +4,6 @@ export const isDarkModeSet = () => {
   return document.documentElement.classList.contains('dark')
 }
 
-// Whenever the user explicitly chooses to respect the OS preference
-// localStorage.removeItem('theme')
-
 export const useTheme = () => {
   const [isDarkMode, setDarkMode] = useState(false)
 

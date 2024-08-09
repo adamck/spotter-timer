@@ -3,6 +3,7 @@ import { useTimerStore } from '@/state/store'
 import { FC, KeyboardEventHandler, useRef, useState } from 'react'
 import Chart, { Props as ChartProps } from 'react-apexcharts'
 import ContentEditable from 'react-contenteditable'
+import { useShallow } from 'zustand/react/shallow'
 import tailwindConfig from '../../tailwind.config'
 
 const options: ChartProps = {
@@ -73,10 +74,9 @@ type Props = {
 }
 
 const RadialGauge: FC<Props> = ({ value, total }) => {
-  const start = useTimerStore((state) => state.start)
-  const stop = useTimerStore((state) => state.stop)
-  const set = useTimerStore((state) => state.set)
-  const running = useTimerStore((state) => state.running)
+  const { start, stop, set, running } = useTimerStore(
+    useShallow((state) => state)
+  )
 
   const [wasRunning, setWasRunning] = useState(running)
 
@@ -165,6 +165,7 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
 
   return (
     <div className="md:w-[320px] lg:w-[462px] relative text-center">
+      {/* present total value */}
       <div className="text-xl text-gray-900 dark:text-white my-[-12px]">
         <div
           className="inline-block"
@@ -178,6 +179,7 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
         </div>
       </div>
 
+      {/* radial gauge chart */}
       <Chart
         options={options}
         series={[(value / total) * 100]}
@@ -185,6 +187,7 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
         width="100%"
       />
 
+      {/* current time presented at center of gauge */}
       <div
         className="text-gray-900 dark:text-white text-4xl lg:text-6xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         aria-label={`Time remaining: ${getMinutes(value)} minutes, ${getSeconds(

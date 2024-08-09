@@ -14,7 +14,7 @@ interface TimerState {
   set: (time: number) => void
 }
 
-export const defaultTime = 15
+export const defaultTime = 10
 
 export const useTimerStore = create<TimerState>((set) => ({
   time: 0,

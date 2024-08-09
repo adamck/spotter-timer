@@ -1,18 +1,14 @@
 import { defaultTime, useTimerStore } from '@/state/store'
 import { PauseIcon, PlayIcon } from '@sanity/icons'
 import { useCallback, useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 
 const timeToAdd = 60
 
 const Controls = () => {
-  // TODO: change to useShallow
-  const time = useTimerStore((state) => state.time)
-  const total = useTimerStore((state) => state.total)
-  const running = useTimerStore((state) => state.running)
-  const start = useTimerStore((state) => state.start)
-  const stop = useTimerStore((state) => state.stop)
-  const reset = useTimerStore((state) => state.reset)
-  const set = useTimerStore((state) => state.set)
+  const { time, total, running, start, stop, reset, set } = useTimerStore(
+    useShallow((state) => state)
+  )
 
   const toggleTimer = useCallback(() => {
     running ? stop() : start()

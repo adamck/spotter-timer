@@ -4,14 +4,12 @@ import RadialGauge from '@/components/RadialGauge'
 import { useTimer } from '@/hooks/useTimer'
 import { defaultTime, useTimerStore } from '@/state/store'
 import { useEffect, useRef } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 
 const Timer = () => {
-  // TODO: change to useShallow
-  const time = useTimerStore((state) => state.time)
-  const total = useTimerStore((state) => state.total)
-  const tick = useTimerStore((state) => state.tick)
-  const set = useTimerStore((state) => state.set)
-  const running = useTimerStore((state) => state.running)
+  const { time, total, tick, set, running } = useTimerStore(
+    useShallow((state) => state)
+  )
 
   const helloWorldCount = useRef(0)
 
