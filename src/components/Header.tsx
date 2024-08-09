@@ -16,14 +16,12 @@ const Header = () => {
     })
 
     if (boomCount.current === 0) {
-      console.log('====================================')
-      console.log('====================================')
+      console.log('============================')
       console.log(
         `Not sure why we need a close button so just going to have some fun with it. Hit it again.`
       )
       console.log('¯\\_(ツ)_/¯')
-      console.log('====================================')
-      console.log('====================================')
+      console.log('============================')
     }
 
     boomCount.current += 1

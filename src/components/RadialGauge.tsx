@@ -13,12 +13,10 @@ const options: ChartProps = {
       enabled: true,
       easing: 'linear',
       speed: 1000,
-
       animateGradually: {
         enabled: false,
         delay: 0,
       },
-
       dynamicAnimation: {
         enabled: true,
         speed: 1000,
@@ -54,8 +52,10 @@ const options: ChartProps = {
   stroke: {
     lineCap: 'round',
   },
-
-  // TODO: apex charts radial gauge seems to not work with their markers feature :-/
+  //
+  // TODO: apex charts radial gauge seems to not work with
+  // their markers feature which I learned too late :-/
+  //
   // markers: {
   //   size: 10,
   //   colors: '#fff000',

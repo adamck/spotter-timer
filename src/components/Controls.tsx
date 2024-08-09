@@ -7,6 +7,7 @@ const timeToAdd = 60
 const Controls = () => {
   // TODO: change to useShallow
   const time = useTimerStore((state) => state.time)
+  const total = useTimerStore((state) => state.total)
   const running = useTimerStore((state) => state.running)
   const start = useTimerStore((state) => state.start)
   const stop = useTimerStore((state) => state.stop)
@@ -18,8 +19,8 @@ const Controls = () => {
   }, [running])
 
   const resetTimer = useCallback(() => {
-    reset(defaultTime)
-  }, [])
+    reset(total ?? defaultTime)
+  }, [total])
 
   const addTime = () => {
     set(time + timeToAdd)
