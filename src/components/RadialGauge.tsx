@@ -1,7 +1,6 @@
 import { formatTime } from '@/lib/time'
 import { timeUnit, useTimerStore } from '@/state/store'
 import { FC, KeyboardEventHandler, useRef, useState } from 'react'
-import Pluralize from 'react-pluralize'
 import Chart, { Props as ChartProps } from 'react-apexcharts'
 import ContentEditable from 'react-contenteditable'
 
