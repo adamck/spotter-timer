@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react'
 
 /**
- * avoid setInterval drift by using requestAnimationFrame
+ * A better timer hook which avoids setInterval drift by using requestAnimationFrame.
+ * start and stop it with the running parameter.
+ * will call the tick parameter callback fn once per second.
  */
 export const useTimer = (running: boolean, tick: () => void) => {
   const requestRef = useRef<ReturnType<typeof requestAnimationFrame>>()
@@ -15,16 +17,7 @@ export const useTimer = (running: boolean, tick: () => void) => {
     } else {
       const delta = curTime - prevTimeRef.current
 
-      // console.log('=======================')
-      // console.log('delta', delta)
-      // console.log('=======================')
-
       if (delta >= 1000) {
-        // console.log('=======================')
-        // console.log('tick', curTime, prevTimeRef.current, delta)
-        // console.log(new Date().getTime())
-        // console.log('=======================')
-
         prevTimeRef.current = curTime
         tick()
       }

@@ -4,7 +4,6 @@ import RadialGauge from '@/components/RadialGauge'
 import { useTimer } from '@/hooks/useTimer'
 import { defaultTime, useTimerStore } from '@/state/store'
 import { useEffect, useRef } from 'react'
-import { setTheme } from './lib/dark-mode'
 
 const Timer = () => {
   // TODO: change to useShallow
@@ -35,9 +34,6 @@ const Timer = () => {
 
   return (
     <div className="max-w-[462px] mx-auto">
-      <div onClick={() => setTheme('dark')}>dark mode</div>
-      <div onClick={() => setTheme('light')}>light mode</div>
-
       <div className="flex flex-col items-center justify-center gap-[26px] md:gap-[40px] lg:gap-[100px] rounded-xl overflow-clip bg-gray-400 dark:bg-brand-10 pb-6 lg:pb-12 shadow-md">
         <Header />
         <RadialGauge total={total ?? 0} value={time} />
