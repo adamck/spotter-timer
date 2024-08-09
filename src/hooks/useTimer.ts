@@ -1,3 +1,4 @@
+import { timeUnit } from '@/state/store'
 import { useCallback, useEffect, useRef } from 'react'
 
 /**
@@ -15,10 +16,15 @@ export const useTimer = (running: boolean, callback: () => void) => {
     } else {
       const delta = curTime - prevTimeRef.current
 
+      // console.log('=======================')
+      // console.log('delta', delta)
+      // console.log('=======================')
+
       if (delta >= 1000) {
-        console.log('=======================')
-        console.log('delta', curTime, prevTimeRef.current, delta)
-        console.log('=======================')
+        // console.log('=======================')
+        // console.log('tick', curTime, prevTimeRef.current, delta)
+        // console.log(new Date().getTime())
+        // console.log('=======================')
 
         prevTimeRef.current = curTime
         callback()

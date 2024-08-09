@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 const Timer = () => {
   // TODO: change to useShallow
   const time = useTimerStore((state) => state.time)
+  const total = useTimerStore((state) => state.total)
   const tick = useTimerStore((state) => state.tick)
   const set = useTimerStore((state) => state.set)
   const running = useTimerStore((state) => state.running)
@@ -21,9 +22,9 @@ const Timer = () => {
 
   return (
     <div className="max-w-[462px] mx-auto">
-      <div className="flex flex-col items-center justify-center md:gap-[40px] lg:gap-[100px] rounded-xl overflow-clip bg-brand-10 pb-12 shadow-md">
+      <div className="flex flex-col items-center justify-center gap-[26px] md:gap-[40px] lg:gap-[100px] rounded-xl overflow-clip bg-brand-10 pb-6 lg:pb-12 shadow-md">
         <Header />
-        <RadialGauge total={defaultTime} value={time} />
+        <RadialGauge total={total ?? 0} value={time} />
         <Controls />
       </div>
     </div>
