@@ -68,6 +68,9 @@ const options: ChartProps = {
   // },
 }
 
+// they keys as well as numerals are okay to enter
+const validNaN = ['ArrowLeft', 'ArrowRight', 'Backspace']
+
 type Props = {
   total: number
   value: number
@@ -101,6 +104,17 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
   const onEditableKeyDown: KeyboardEventHandler = (e) => {
     // prevent new line flicker
     if (e.code === 'Enter') {
+      e.preventDefault()
+    }
+
+    // prevent disallowed characters or numbers if at max length
+    // ... while still allowing max length numbers if one or more chars are selected
+    const isNumeric = !isNaN(parseInt(e.key))
+    const atMax = input.current.length === 5
+    const allowedChar = isNumeric || validNaN.includes(e.key)
+    const hasRangeSelected = document.getSelection()?.type === 'Range'
+
+    if ((isNumeric && atMax && !hasRangeSelected) || !allowedChar) {
       e.preventDefault()
     }
   }
@@ -140,20 +154,7 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
     }
 
     if (e.code === 'Escape') {
-      e.preventDefault()
-
       editableRef.current?.blur()
-
-      return
-    }
-
-    //
-    // now handle valid non-numeric input and otherwise exit on anything else
-    //
-    const validNaN = ['ArrowLeft', 'ArrowRight', 'Backspace']
-
-    if (isNaN(parseInt(e.key)) && !validNaN.includes(e.key)) {
-      e.preventDefault()
       return
     }
 
