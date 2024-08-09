@@ -22,7 +22,7 @@ const Timer = () => {
 
   return (
     <div className="max-w-[462px] mx-auto">
-      <div className="flex flex-col items-center justify-center gap-[26px] md:gap-[40px] lg:gap-[100px] rounded-xl overflow-clip bg-brand-10 pb-6 lg:pb-12 shadow-md">
+      <div className="flex flex-col items-center justify-center gap-[26px] md:gap-[40px] lg:gap-[100px] rounded-xl overflow-clip bg-gray-500 dark:bg-brand-10 pb-6 lg:pb-12 shadow-md">
         <Header />
         <RadialGauge total={total ?? 0} value={time} />
         <Controls />

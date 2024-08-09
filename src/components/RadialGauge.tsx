@@ -1,24 +1,10 @@
 import { formatTime, getMinutes, getSeconds } from '@/lib/time'
-import { timeUnit, useTimerStore } from '@/state/store'
-import {
-  FC,
-  KeyboardEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { useTimerStore } from '@/state/store'
+import { FC, KeyboardEventHandler, useRef, useState } from 'react'
 import Chart, { Props as ChartProps } from 'react-apexcharts'
 import ContentEditable from 'react-contenteditable'
+import tailwindConfig from '../../tailwind.config'
 
-const riskColorsRadial = {
-  low: '#6CD85B',
-  medium: '#F1B518',
-  high: '#FB3131',
-}
-
-// TODO: if not changing any styles based on value/total, make this a const
-// const getChartOptions = (value: number, total: number): ChartProps =>
 const options: ChartProps = {
   chart: {
     height: 200,
@@ -39,7 +25,6 @@ const options: ChartProps = {
       },
     },
   },
-  colors: [riskColorsRadial.low],
   plotOptions: {
     radialBar: {
       hollow: {
@@ -48,7 +33,7 @@ const options: ChartProps = {
       startAngle: 0,
       endAngle: 360,
       track: {
-        background: '#222c31', // bg-brand-65
+        background: tailwindConfig.theme.extend.colors['brand-50'],
         startAngle: 0,
         endAngle: 360,
       },
@@ -66,42 +51,20 @@ const options: ChartProps = {
     type: 'solid',
     colors: ['#fff'],
   },
-
-  markers: {
-    size: 10,
-    colors: '#fff000',
-    strokeColors: '#fff000',
-    strokeOpacity: 1,
-    fillOpacity: 1,
-    strokeWidth: 20,
-    shape: 'circle',
-
-    showNullDataPoints: true,
-  },
-
-  // TODO: show off w some nice gradient work?
-  // fill: {
-  //   type: 'gradient',
-  //   gradient: {
-  //     shade: 'dark',
-  //     type: 'horizontal',
-  //     colorStops: [
-  //       {
-  //         offset: 0,
-  //         color: riskColorsRadial.low,
-  //         opacity: 1,
-  //       },
-  //       {
-  //         offset: 100,
-  //         color: riskColorsRadial.medium,
-  //         opacity: 1,
-  //       },
-  //     ],
-  //   },
-  // },
   stroke: {
     lineCap: 'round',
   },
+
+  // TODO: apex charts radial gauge seems to not work with their markers feature :-/
+  // markers: {
+  //   size: 10,
+  //   colors: '#fff000',
+  //   strokeColors: '#fff000',
+  //   strokeOpacity: 1,
+  //   fillOpacity: 1,
+  //   strokeWidth: 20,
+  //   shape: 'circle',
+  // },
 }
 
 type Props = {
@@ -167,7 +130,7 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
         // TODO: do what?
       }
 
-      set((secs + mins * 60) * timeUnit)
+      set(secs + mins * 60)
 
       if (wasRunning) {
         start()
@@ -202,7 +165,7 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
 
   return (
     <div className="md:w-[320px] lg:w-[462px] relative text-center">
-      <div className="text-xl  text-white my-[-12px]">
+      <div className="text-xl text-gray-900 dark:text-white my-[-12px]">
         <div
           className="inline-block"
           tabIndex={0}
@@ -223,7 +186,7 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
       />
 
       <div
-        className="text-white text-4xl lg:text-6xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        className="text-gray-900 dark:text-white text-4xl lg:text-6xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         aria-label={`Time remaining: ${getMinutes(value)} minutes, ${getSeconds(
           value
         )} seconds`}
@@ -237,7 +200,7 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
           onKeyDown={onEditableKeyDown}
           onChange={_onEditableChange}
           style={{
-            // prevent shift
+            // prevent shift as numerals are counting down
             fontVariantNumeric: 'tabular-nums',
           }}
         />

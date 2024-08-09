@@ -1,11 +1,7 @@
-import { timeUnit } from '@/state/store'
-
 /**
  * Format a number of milliseconds as mm:ss always with padded zeros
  */
 export const formatTime = (time: number) => {
-  time = time / timeUnit
-
   const mins = getMinutes(time).toString().padStart(2, '0')
   const secs = getSeconds(time).toString().padStart(2, '0')
 

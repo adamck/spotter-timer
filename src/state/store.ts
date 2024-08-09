@@ -1,7 +1,9 @@
 import { create } from 'zustand'
 
 interface TimerState {
-  // in `timeUnit`
+  /**
+   * in seconds
+   */
   time: number
   total: number | undefined
   running: boolean
@@ -12,8 +14,7 @@ interface TimerState {
   set: (time: number) => void
 }
 
-export const timeUnit = 1
-export const defaultTime = 10 * timeUnit
+export const defaultTime = 10
 
 export const useTimerStore = create<TimerState>((set) => ({
   time: 0,
@@ -34,11 +35,6 @@ export const useTimerStore = create<TimerState>((set) => ({
     set((state) => {
       // stop when hitting zero
       const time = Math.max(0, state.time - 1)
-
-      console.log('=======================')
-      console.log('tick', time)
-      console.log('=======================')
-
       return {
         time,
         running: time > 0,

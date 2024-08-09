@@ -1,8 +1,8 @@
-import { defaultTime, timeUnit, useTimerStore } from '@/state/store'
+import { defaultTime, useTimerStore } from '@/state/store'
 import { PauseIcon, PlayIcon } from '@sanity/icons'
 import { useCallback, useEffect } from 'react'
 
-const timeToAdd = 60 * timeUnit
+const timeToAdd = 60
 
 const Controls = () => {
   // TODO: change to useShallow
@@ -48,7 +48,7 @@ const Controls = () => {
   }, [running, time])
 
   return (
-    <div className="flex w-full items-center justify-between px-4 lg:px-8 text-white">
+    <div className="flex w-full items-center justify-between px-4 lg:px-8 text-gray-900 dark:text-white">
       <button
         className="cursor-pointer text-2xl lg:text-3xl text-center w-[75px]"
         onClick={addTime}
@@ -59,7 +59,7 @@ const Controls = () => {
         +1:00
       </button>
       <button
-        className="cursor-pointer rounded-full size-16 lg:size-20 flex items-center justify-center bg-brand-50 hover:bg-brand-70 transition ease-out duration-100"
+        className="cursor-pointer rounded-full size-16 lg:size-20 flex items-center justify-center bg-gray-300 dark:bg-brand-50 hover:bg-gray-200 dark:hover:bg-brand-70 transition ease-out duration-100"
         onClick={toggleTimer}
         tabIndex={0}
         title="Start and stop the timer (⌥+SPACE)"

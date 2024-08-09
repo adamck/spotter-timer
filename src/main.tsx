@@ -5,7 +5,7 @@ import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <div className="flex items-center justify-center min-h-lvh bg-brand-50">
+    <div className="flex items-center justify-center min-h-lvh bg-gray-200 dark:bg-brand-50">
       <Timer />
     </div>
   </StrictMode>
