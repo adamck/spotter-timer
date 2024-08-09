@@ -1,10 +1,9 @@
-import { timeUnit } from '@/state/store'
 import { useCallback, useEffect, useRef } from 'react'
 
 /**
  * avoid setInterval drift by using requestAnimationFrame
  */
-export const useTimer = (running: boolean, callback: () => void) => {
+export const useTimer = (running: boolean, tick: () => void) => {
   const requestRef = useRef<ReturnType<typeof requestAnimationFrame>>()
   const prevTimeRef = useRef<number>()
 
@@ -27,7 +26,7 @@ export const useTimer = (running: boolean, callback: () => void) => {
         // console.log('=======================')
 
         prevTimeRef.current = curTime
-        callback()
+        tick()
       }
     }
 

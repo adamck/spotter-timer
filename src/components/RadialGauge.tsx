@@ -1,6 +1,13 @@
-import { formatTime } from '@/lib/time'
+import { formatTime, getMinutes, getSeconds } from '@/lib/time'
 import { timeUnit, useTimerStore } from '@/state/store'
-import { FC, KeyboardEventHandler, useRef, useState } from 'react'
+import {
+  FC,
+  KeyboardEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import Chart, { Props as ChartProps } from 'react-apexcharts'
 import ContentEditable from 'react-contenteditable'
 
@@ -19,7 +26,7 @@ const options: ChartProps = {
     animations: {
       enabled: true,
       easing: 'linear',
-      speed: 10,
+      speed: 1000,
 
       animateGradually: {
         enabled: false,
@@ -108,19 +115,16 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
   const set = useTimerStore((state) => state.set)
   const running = useTimerStore((state) => state.running)
 
-  const [isEditing, setIsEditing] = useState(false)
   const [wasRunning, setWasRunning] = useState(running)
+
   const input = useRef(value.toString())
   const editableRef = useRef<HTMLDivElement>(null)
 
-  // const options = getChartOptions(value, total)
-
   const onEditableFocus = () => {
+    setWasRunning(running)
+
     // UX decision to pause the timer when inputting new time value
     stop()
-
-    setIsEditing(true)
-    setWasRunning(running)
 
     input.current = formatTime(value)
   }
@@ -147,8 +151,6 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
       e.preventDefault()
 
       editableRef.current?.blur()
-
-      setIsEditing(false)
 
       const split = input.current.split(':')
       let mins = 0
@@ -179,8 +181,6 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
 
       editableRef.current?.blur()
 
-      setIsEditing(false)
-
       return
     }
 
@@ -200,17 +200,19 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
   // unused but a necessary prop for ContentEditable *shrug*
   const _onEditableChange = () => null
 
-  console.log('=======================')
-  console.log('chart %', (value / total) * 100)
-
-  console.log(value, total)
-  console.log('=======================')
-
   return (
-    <div className="md:w-[320px] lg:w-[462px] relative">
-      <div className="text-xl text-center text-white my-[-12px]">
-        {formatTime(total)}
-        {/* <Pluralize singular="sec" count={total} /> */}
+    <div className="md:w-[320px] lg:w-[462px] relative text-center">
+      <div className="text-xl  text-white my-[-12px]">
+        <div
+          className="inline-block"
+          tabIndex={0}
+          title="Total time"
+          aria-label={`Total time: ${getMinutes(total)} minutes, ${getSeconds(
+            total
+          )} seconds`}
+        >
+          {formatTime(total)}
+        </div>
       </div>
 
       <Chart
@@ -220,10 +222,15 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
         width="100%"
       />
 
-      <div className="text-white text-4xl lg:text-6xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div
+        className="text-white text-4xl lg:text-6xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        aria-label={`Time remaining: ${getMinutes(value)} minutes, ${getSeconds(
+          value
+        )} seconds`}
+      >
         <ContentEditable
           innerRef={editableRef}
-          html={isEditing ? input.current : formatTime(value)}
+          html={formatTime(value)}
           onFocus={onEditableFocus}
           onBlur={onEditableBlur}
           onKeyUp={onEditableKeyUp}

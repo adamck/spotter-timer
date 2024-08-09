@@ -54,6 +54,7 @@ const Controls = () => {
         onClick={addTime}
         tabIndex={0}
         title="Add an additional minute (⌥+A)"
+        aria-label="Add an additional minute"
       >
         +1:00
       </button>
@@ -62,6 +63,7 @@ const Controls = () => {
         onClick={toggleTimer}
         tabIndex={0}
         title="Start and stop the timer (⌥+SPACE)"
+        aria-label="Start and stop the timer"
       >
         {running ? (
           <PauseIcon width={40} height={40} />
@@ -74,6 +76,7 @@ const Controls = () => {
         onClick={resetTimer}
         tabIndex={0}
         title="Reset the timer to its initial value (⌥+R)"
+        aria-label="Reset the timer to its initial value"
       >
         Reset
       </button>
