@@ -14,9 +14,13 @@ const Controls = () => {
     running ? stop() : start()
   }, [running])
 
-  const resetTimer = useCallback(() => {
-    reset(total ?? defaultTime)
-  }, [total])
+  const resetTimer = useCallback(
+    (forceDefault: boolean = false) => {
+      if (forceDefault) reset(defaultTime)
+      else reset(total ?? defaultTime)
+    },
+    [total]
+  )
 
   const addTime = () => {
     set(time + timeToAdd)
@@ -31,7 +35,11 @@ const Controls = () => {
       if (e.code === 'Space') {
         toggleTimer()
       } else if (e.code === 'KeyR') {
-        resetTimer()
+        if (e.shiftKey) {
+          resetTimer(true)
+        } else {
+          resetTimer()
+        }
       } else if (e.code === 'KeyA') {
         addTime()
       }
@@ -70,10 +78,14 @@ const Controls = () => {
       </button>
       <button
         className="cursor-pointer text-2xl lg:text-3xl text-center w-[75px]"
-        onClick={resetTimer}
+        onClick={() => resetTimer()}
+        onDoubleClick={() => resetTimer(true)}
         tabIndex={0}
-        title="Reset the timer to its initial value (⌥+R)"
-        aria-label="Reset the timer to its initial value"
+        title={`
+          Reset the timer to its last set value (⌥+R).
+          To reset to the initial value double-click or press Shift+⌥+R.
+        `}
+        aria-label="Reset the timer to its last set value"
       >
         Reset
       </button>

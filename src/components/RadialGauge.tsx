@@ -105,8 +105,8 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
     // prevent new line flicker
     if (e.code === 'Enter') {
       e.preventDefault()
+      return
     }
-
     // prevent disallowed characters or numbers if at max length
     // ... while still allowing max length numbers if one or more chars are selected
     const isNumeric = !isNaN(parseInt(e.key))
@@ -127,22 +127,22 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
     if (e.code === 'Enter') {
       e.preventDefault()
 
-      editableRef.current?.blur()
-
       const split = input.current.split(':')
       let mins = 0
       let secs = 0
 
-      if (split.length === 1) {
-        // user deleted the colon, just parse time from the integer remaining
-        secs = parseInt(split[0])
-      } else if (split.length === 2) {
+      if (split.length === 2) {
         mins = parseInt(split[0])
         secs = parseInt(split[1])
       } else {
-        // something weird happened. user shouldn't be able to type in an extra colon
+        // something weird happened that shouldn't have
+        // user either deleted the colon or added an extra one
         // TODO: do what?
       }
+
+      // ~catchall~ for naughty input
+      if (isNaN(mins)) mins = 0
+      if (isNaN(secs)) secs = 0
 
       set(secs + mins * 60)
 
@@ -150,13 +150,27 @@ const RadialGauge: FC<Props> = ({ value, total }) => {
         start()
       }
 
+      editableRef.current?.blur()
+
       return
     }
 
+    // Esc simply blurs the input, reverting to the last value
     if (e.code === 'Escape') {
       editableRef.current?.blur()
       return
     }
+
+    // TODO: definitely a better way to do this but, prevent user from deleting the colon
+    // one edge case easily arises if they've deleted a number character in the same edit.
+    if (e.code === 'Backspace' && !e.currentTarget.innerHTML.includes(':')) {
+      const badInput = e.currentTarget.innerHTML
+
+      e.currentTarget.innerHTML =
+        badInput.slice(0, 2) + ':' + badInput.slice(2, 4)
+    }
+
+    // TODO: user could do other nefarious things w the input that we're not addressing
 
     input.current = e.currentTarget.innerHTML
   }
