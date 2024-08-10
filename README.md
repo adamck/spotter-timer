@@ -1,5 +1,10 @@
 # Senior Front-End Engineer Home Assessment for Spotter.la
 
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/5f0907f6-532b-468a-876e-2fd363eb2d6a">
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/47c189fa-d355-4a69-b1ba-e232825df751">
+
+
+
 https://www.notion.so/spotterla/Senior-Front-End-Engineer-920523e51ce14504a13ee4e16ac89399?pvs=4
 
 ## To Run
