@@ -34,4 +34,4 @@ The interactive elements are all keyboard-tabbable. As well, the bottom controls
 - Another shortcoming I discovered with Apex (*have* used it before but in less interactive cases) was with the animation - it has to follow and ease to the next value rather than immediately ticking.
 - There are some known issues with bad actor inputs on the `react-contenteditable` timer value. With time to refactor I might have chosen Atlassian's editable text component instead.
 - Had some other ideas for enhancing the UX such as flashing the countdown and/or adding color or a gradient to the gauge when > 90% complete.
-- Additionally, the edit time / reset time behavior concepts could perhaps be made more intuitive or simplified 
+- Additionally, the edit time / reset time behavior concepts could perhaps be made more intuitive or simplified.
