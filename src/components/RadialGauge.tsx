@@ -69,7 +69,7 @@ const options: ChartProps = {
 }
 
 // they keys as well as numerals are okay to enter
-const validNaN = ['ArrowLeft', 'ArrowRight', 'Backspace']
+const validNaN = ['ArrowLeft', 'ArrowRight', 'Backspace', 'Tab']
 
 type Props = {
   total: number
