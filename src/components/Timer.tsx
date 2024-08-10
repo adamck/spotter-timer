@@ -11,8 +11,10 @@ const Timer = () => {
     useShallow((state) => state)
   )
 
+  // 👋🏼
   const helloWorldCount = useRef(0)
 
+  // timer hook that runs the state tick fn
   useTimer(running, tick)
 
   useEffect(() => {
