@@ -1,7 +1,7 @@
 import { CloseIcon } from '@sanity/icons'
 
 import JSConfetti from 'js-confetti'
-import { useRef } from 'react'
+import { memo, useRef } from 'react'
 
 const jsConfetti = new JSConfetti()
 const emojis = ['👻', '😎', '🤙', '🐿️', '🤠', '🔎', '🐞']
@@ -42,4 +42,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default memo(Header)
