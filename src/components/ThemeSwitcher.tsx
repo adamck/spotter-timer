@@ -1,4 +1,4 @@
-import { useTheme } from '@/lib/darkMode'
+import { useTheme } from '@/hooks/useTheme'
 import { cn } from '@/lib/tailwind'
 import { MoonIcon, SunIcon } from '@sanity/icons'
 
