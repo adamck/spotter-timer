@@ -34,7 +34,7 @@ describe('timer state management', () => {
     expect(state.time).toEqual(30)
   })
 
-  it('should increment time when tick() is called', () => {
+  it('should decrement time when tick() is called', () => {
     const { tick, set } = useTimerStore.getState()
     const startTime = 30
     set(startTime)
